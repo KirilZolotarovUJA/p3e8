@@ -14,7 +14,7 @@
 #include "Spell.h"
 #include <iostream>
 
-Spell::Spell(std::string n, std::string e, int p) : name(n), effect(e), powerLevel(p)
+Spell::Spell(const std::string &n, const std::string &e, int p) : name(n), effect(e), powerLevel(p)
 {
     std::cout << "New spell " << name << " learned!\n";
 }

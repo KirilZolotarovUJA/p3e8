@@ -37,7 +37,7 @@ public:
      * @param e Description of the spell's magical effect.
      * @param p Initial power level of the spell.
      */
-    Spell(std::string n, std::string e, int p);
+    Spell(const std::string &n, const std::string &e, int p);
 
     /**
      * @brief Destroy the Spell object
