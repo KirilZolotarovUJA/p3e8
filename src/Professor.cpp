@@ -14,7 +14,7 @@
 #include "Professor.h"
 #include <iostream>
 
-Professor::Professor(std::string n, std::string s)
+Professor::Professor(const std::string &n, const std::string &s)
     : name(n), subject(s)
 {
     std::cout << "Professor " << name << " is ready to teach " << subject << "!\n";
@@ -31,7 +31,7 @@ void Professor::addStudent(WizardStudent *student)
     std::cout << student->getName() << " joined Professor " << name << "'s class.\n";
 }
 
-void Professor::teachSpell(const Spell &spell)
+void Professor::teachSpell(const Spell &spell) const
 {
     std::cout << "Professor " << name << " is teaching " << spell.getName() << "!\n";
     for (auto student : students)

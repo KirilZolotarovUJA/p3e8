@@ -39,7 +39,7 @@ public:
      * @param n Name of the professor.
      * @param s Subject taught by the professor.
      */
-    Professor(std::string n, std::string s);
+    Professor(const std::string &n, const std::string &s);
 
     /**
      * @brief Destroy the Professor object
@@ -61,7 +61,7 @@ public:
      *
      * @param spell Reference to the Spell object that will be taught.
      */
-    void teachSpell(const Spell &spell);
+    void teachSpell(const Spell &spell) const;
 
     /**
      * @brief Evaluates all students by displaying the spells they know
