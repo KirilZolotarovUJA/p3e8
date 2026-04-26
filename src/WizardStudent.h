@@ -41,7 +41,7 @@ public:
      * @param h House to which the student belongs.
      * @param y Academic year of the student.
      */
-    WizardStudent(std::string n, std::string h, int y);
+    WizardStudent(const std::string &n, const std::string &h, int y);
 
     /**
      * @brief Destroy the Wizard Student object

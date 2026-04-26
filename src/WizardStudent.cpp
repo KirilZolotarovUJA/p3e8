@@ -14,7 +14,7 @@
 #include "WizardStudent.h"
 #include <iostream>
 
-WizardStudent::WizardStudent(std::string n, std::string h, int y)
+WizardStudent::WizardStudent(const std::string &n, const std::string &h, int y)
     : name(n), house(h), year(y)
 {
     std::cout << "Welcome, " << name << " to " << house << "!\n";
