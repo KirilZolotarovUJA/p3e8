@@ -18,7 +18,14 @@
 #include <iostream>
 #include <memory>
 
-// This function attempts to read a value from standard input.
+/**
+ * @brief Safely reads a value from standard input, handling errors and EOF.
+ *
+ * @tparam T The type of the value to read.
+ * @param value Reference to the variable where the read value will be stored.
+ * @return true  If the read succeeded or if a recoverable input error occurred.
+ * @return false If EOF was reached, indicating the program should terminate.
+ */
 template <typename T>
 bool safe_read(T &value)
 {
@@ -46,6 +53,12 @@ void displayMenu()
     std::cout << "Enter your choice: ";
 }
 
+/**
+ * @brief Prompts the user for student details and enrolls a new student.
+ *
+ * @param professor   The professor who will supervise the new student.
+ * @param allStudents The shared list to which the new student is appended.
+ */
 void handleCreateStudent(
     Professor &professor,
     std::vector<std::shared_ptr<WizardStudent>> &allStudents)
@@ -66,6 +79,13 @@ void handleCreateStudent(
     professor.addStudent(student);
 }
 
+/**
+ * @brief Instructs the professor to teach a predefined spell to their students.
+ *
+ * @param professor   The professor who will teach the spell.
+ * @param allStudents Read-only list used to verify that students exist before
+ *                    attempting to teach.
+ */
 void handleTeachSpell(
     const Professor &professor,
     const std::vector<std::shared_ptr<WizardStudent>> &allStudents)
@@ -80,6 +100,13 @@ void handleTeachSpell(
     professor.teachSpell(spell);
 }
 
+/**
+ * @brief Makes every enrolled student practice their spells and triggers
+ *        professor evaluation.
+ *
+ * @param professor   The professor who evaluates the students after practice.
+ * @param allStudents Read-only list of students who will practice their spells.
+ */
 void handlePracticeSpells(
     const Professor &professor,
     const std::vector<std::shared_ptr<WizardStudent>> &allStudents)
@@ -96,6 +123,16 @@ void handlePracticeSpells(
     professor.evaluateStudents();
 }
 
+/**
+ * @brief Dispatches a menu choice to the corresponding handler function.
+ *
+ * @param choice      The menu option entered by the user.
+ * @param professor   The professor passed through to the relevant handler.
+ * @param allStudents The student list passed through to the relevant handler.
+ * @return true  If the simulation loop should continue (choices 1–3 and any
+ *               invalid input).
+ * @return false If the user chose to exit (choice 4).
+ */
 bool handleMenuChoice(
     int choice,
     Professor &professor,
