@@ -1,5 +1,5 @@
 /**
- * @file test_main.h
+ * @file test_main.cpp
  * @author Kiril Zolotarov (kz000012@red.ujaen.es)
  * @author Roberto Menegassi (ramf0001@red.ujaen.es)
  * @brief Unit tests for validating the run_simulation function's behavior
