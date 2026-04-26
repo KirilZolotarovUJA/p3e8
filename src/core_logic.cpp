@@ -46,73 +46,92 @@ void displayMenu()
     std::cout << "Enter your choice: ";
 }
 
+void handleCreateStudent(
+    Professor &professor,
+    std::vector<std::shared_ptr<WizardStudent>> &allStudents)
+{
+    std::string name;
+    std::string house;
+
+    std::cout << "Enter student name: ";
+    if (!safe_read(name))
+        return;
+
+    std::cout << "Enter house name: ";
+    if (!safe_read(house))
+        return;
+
+    auto student = std::make_shared<WizardStudent>(name, house, 1);
+    allStudents.push_back(student);
+    professor.addStudent(student);
+}
+
+void handleTeachSpell(
+    Professor &professor,
+    const std::vector<std::shared_ptr<WizardStudent>> &allStudents)
+{
+    if (allStudents.empty())
+    {
+        std::cout << "No students to teach!\n";
+        return;
+    }
+
+    Spell spell("Wingardium Leviosa", "Levitation", 1);
+    professor.teachSpell(spell);
+}
+
+void handlePracticeSpells(
+    Professor &professor,
+    const std::vector<std::shared_ptr<WizardStudent>> &allStudents)
+{
+    if (allStudents.empty())
+    {
+        std::cout << "No students to practice!\n";
+        return;
+    }
+
+    for (auto &student : allStudents)
+        student->practiceSpells();
+
+    professor.evaluateStudents();
+}
+
+bool handleMenuChoice(
+    int choice,
+    Professor &professor,
+    std::vector<std::shared_ptr<WizardStudent>> &allStudents)
+{
+    switch (choice)
+    {
+    case 1:
+        handleCreateStudent(professor, allStudents);
+        return true;
+    case 2:
+        handleTeachSpell(professor, allStudents);
+        return true;
+    case 3:
+        handlePracticeSpells(professor, allStudents);
+        return true;
+    case 4:
+        return false;
+    default:
+        std::cout << "Invalid option!\n";
+        return true;
+    }
+}
+
 void run_simulation()
 {
     Professor mcgonagall("McGonagall", "Transfiguration");
     std::vector<std::shared_ptr<WizardStudent>> allStudents;
 
     int choice;
-    bool running = true;
-
-    while (running)
+    while (true)
     {
         displayMenu();
         if (!safe_read(choice))
-            break; // Exit if EOF is reached
-
-        switch (choice)
-        {
-        case 1:
-        {
-            std::string name, house;
-            std::cout << "Enter student name: ";
-            if (!safe_read(name))
-                break; // Exit if EOF is reached
-            std::cout << "Enter house name: ";
-            if (!safe_read(house))
-                break; // Exit if EOF is reached
-
-            auto student = std::make_shared<WizardStudent>(name, house, 1);
-            allStudents.push_back(student);
-            mcgonagall.addStudent(student);
             break;
-        }
-        case 2:
-        {
-            if (allStudents.empty())
-            {
-                std::cout << "No students to teach!\n";
-                break;
-            }
-
-            Spell spell("Wingardium Leviosa", "Levitation", 1);
-            mcgonagall.teachSpell(spell);
+        if (!handleMenuChoice(choice, mcgonagall, allStudents))
             break;
-        }
-        case 3:
-        {
-            if (allStudents.empty())
-            {
-                std::cout << "No students to practice!\n";
-                break;
-            }
-
-            for (auto student : allStudents)
-            {
-                student->practiceSpells();
-            }
-            mcgonagall.evaluateStudents();
-            break;
-        }
-        case 4:
-        {
-            running = false;
-            break;
-        }
-        default:
-        {
-            std::cout << "Invalid option!\n";
-        }
-        }
     }
 }
