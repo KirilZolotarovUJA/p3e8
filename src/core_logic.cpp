@@ -16,6 +16,7 @@
 #include "WizardStudent.h"
 #include "Professor.h"
 #include <iostream>
+#include <memory>
 
 // This function attempts to read a value from standard input.
 template <typename T>
@@ -48,7 +49,7 @@ void displayMenu()
 void run_simulation()
 {
     Professor mcgonagall("McGonagall", "Transfiguration");
-    std::vector<WizardStudent *> allStudents;
+    std::vector<std::shared_ptr<WizardStudent>> allStudents;
 
     int choice;
     bool running = true;
@@ -71,7 +72,7 @@ void run_simulation()
             if (!safe_read(house))
                 break; // Exit if EOF is reached
 
-            WizardStudent *student = new WizardStudent(name, house, 1);
+            auto student = std::make_shared<WizardStudent>(name, house, 1);
             allStudents.push_back(student);
             mcgonagall.addStudent(student);
             break;
@@ -113,11 +114,5 @@ void run_simulation()
             std::cout << "Invalid option!\n";
         }
         }
-    }
-
-    // Cleanup
-    for (auto student : allStudents)
-    {
-        delete student;
     }
 }

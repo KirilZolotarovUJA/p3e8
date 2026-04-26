@@ -16,6 +16,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include "WizardStudent.h"
 
 /**
@@ -30,7 +31,7 @@ class Professor
 private:
     std::string name;                      ///< Name of the professor.
     std::string subject;                   ///< Subject that the professor teaches.
-    std::vector<WizardStudent *> students; ///< List of students taught by the professor.
+    std::vector<std::shared_ptr<WizardStudent>> students; ///< List of students taught by the professor.
 
 public:
     /**
@@ -50,9 +51,9 @@ public:
     /**
      * @brief Adds a student to the professor's class.
      *
-     * @param student Pointer to the WizardStudent that will be added.
+     * @param student Shared pointer to the WizardStudent that will be added.
      */
-    void addStudent(WizardStudent *student);
+    void addStudent(std::shared_ptr<WizardStudent> student);
 
     /**
      * @brief Teaches a spell to all students in the class.

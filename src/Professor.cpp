@@ -25,7 +25,7 @@ Professor::~Professor()
     std::cout << "Professor " << name << " has retired.\n";
 }
 
-void Professor::addStudent(WizardStudent *student)
+void Professor::addStudent(std::shared_ptr<WizardStudent> student)
 {
     students.push_back(student);
     std::cout << student->getName() << " joined Professor " << name << "'s class.\n";
