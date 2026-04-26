@@ -67,7 +67,7 @@ void handleCreateStudent(
 }
 
 void handleTeachSpell(
-    Professor &professor,
+    const Professor &professor,
     const std::vector<std::shared_ptr<WizardStudent>> &allStudents)
 {
     if (allStudents.empty())
@@ -81,7 +81,7 @@ void handleTeachSpell(
 }
 
 void handlePracticeSpells(
-    Professor &professor,
+    const Professor &professor,
     const std::vector<std::shared_ptr<WizardStudent>> &allStudents)
 {
     if (allStudents.empty())
@@ -129,9 +129,7 @@ void run_simulation()
     while (true)
     {
         displayMenu();
-        if (!safe_read(choice))
-            break;
-        if (!handleMenuChoice(choice, mcgonagall, allStudents))
+        if (!safe_read(choice) || !handleMenuChoice(choice, mcgonagall, allStudents))
             break;
     }
 }
